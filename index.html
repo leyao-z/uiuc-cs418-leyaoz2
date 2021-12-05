@@ -110,8 +110,8 @@ void main() {
 
   vec3 sNormal = vec3(texture(uSampler3, vTexCoord + vec2(H_STEP,0)));
   vec3 tNormal = vec3(texture(uSampler3, vTexCoord + vec2(0,V_STEP)));
-  float dBds = 4.0 * (length(sNormal) - length(currNormal));
-  float dBdt = 4.0 * (length(tNormal) - length(currNormal));
+  float dBds = 2.0 * (sNormal.x - currNormal.x);
+  float dBdt = 2.0 * (tNormal.x - currNormal.x);
 
   nhat -= dBds * cross(nhat, vec3(0.0, 1.0, 0.0)) + dBdt * cross(nhat, vec3(1.0, 0.0, 0.0));
   nhat = normalize(nhat);
@@ -330,7 +330,7 @@ function initwebgl() {
 
   image3.addEventListener("load", function() {
     gl.bindTexture(gl.TEXTURE_2D, texture3);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1018, 509, 0, gl.RGBA, gl.UNSIGNED_BYTE, image3);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, 1018, 509, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, image3);
     gl.generateMipmap(gl.TEXTURE_2D);
   });
 
